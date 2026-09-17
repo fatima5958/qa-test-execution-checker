@@ -1,32 +1,22 @@
+# QA Test Execution & Coverage Checker
+
+print("---------------------------------")
+print("QA Test Execution & Coverage Checker")
+print("---------------------------------")
+
 # Collect Tester Information
+tester_name = input("Enter Tester Name: ").strip()
 
-print("---------------------------------")
-print("QA Test Execution System")
-print("---------------------------------")
-
-tester_name = input("Enter the Tester Name :: ")
-
-browser = input("Browser you have used :: ")
-browser = browser.lower().strip()
+browser = input("Enter Browser (Chrome/Firefox/Edge): ").lower().strip()
 
 supported_browsers = ["chrome", "firefox", "edge"]
-try:
-    test_passed = input("Enter the Test Passed")
-    test_passed=int(test_passed)
-except ValueError:
-    print("Enter a Valid Input")
-
-
 
 # Counters
-
 passed_tests = 0
 failed_tests = 0
 total_tests = 0
 
-
 # Define Test Cases
-
 test_cases = [
     "Login",
     "Logout",
@@ -36,42 +26,44 @@ test_cases = [
     "Profile"
 ]
 
-
 # Browser Check
+print("\n--- Browser Check ---")
 
 if browser in supported_browsers:
-    print("Supported Browser")
+    print(f"Browser: {browser.title()}")
+    print("Status: Supported")
 else:
-    print("Unsupported Browser")
-
+    print(f"Browser: {browser}")
+    print("Status: Unsupported")
 
 # Automation Environment Check
+print("\n--- Automation Environment Check ---")
 
 if browser in supported_browsers and len(test_cases) >= 5:
-    print("You are ready for automation testing....")
+    print("Environment Status: Ready for automation testing")
 else:
-    print("Environment is not ready for automation testing")
-
+    print("Environment Status: Not ready for automation testing")
 
 # Reusable Test Function
-
 def test_run(test_name):
-
     print(f"Executing test: {test_name}")
 
-    if test_name == "Search" or test_name == "Checkout":
+    # Simulated test results for this learning project
+    if test_name in ["Search", "Checkout"]:
         return "FAIL"
     else:
         return "PASS"
 
 
 # Execute Test Cases
+print("\n--- Test Execution ---")
 
 for test in test_cases:
 
     result = test_run(test)
 
     print(f"Test Result: {result}")
+    print("---------------------------------")
 
     total_tests += 1
 
@@ -81,34 +73,38 @@ for test in test_cases:
         failed_tests += 1
 
 
-# Calculate Test Coverage
-
-pass_percentage = (passed_tests / total_tests) * 100
-failed_percentage = (failed_tests / total_tests) * 100
+# Calculate Test Results
+if total_tests > 0:
+    pass_percentage = (passed_tests / total_tests) * 100
+    fail_percentage = (failed_tests / total_tests) * 100
+else:
+    pass_percentage = 0
+    fail_percentage = 0
 
 
 # Test Report
-
-print("---------------------------------")
+print("\n---------------------------------")
 print("QA TEST REPORT")
 print("---------------------------------")
 
 print(f"Tester Name: {tester_name}")
-print(f"Browser: {browser}")
+print(f"Browser: {browser.title()}")
 
 print(f"Total Tests: {total_tests}")
 print(f"Passed Tests: {passed_tests}")
 print(f"Failed Tests: {failed_tests}")
 
 print(f"Pass Percentage: {pass_percentage:.2f}%")
-print(f"Fail Percentage: {failed_percentage:.2f}%")
-
+print(f"Fail Percentage: {fail_percentage:.2f}%")
 
 # Coverage Decision
+print("\n--- Test Coverage ---")
 
 if total_tests >= 5:
-    print("Good Test Coverage")
+    print("Test Coverage Status: Good Test Coverage")
 else:
-    print("Add More Test Cases")
+    print("Test Coverage Status: Add More Test Cases")
 
+print("---------------------------------")
+print("Test execution completed.")
 print("---------------------------------")
